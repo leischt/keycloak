@@ -223,8 +223,16 @@ public class ModelToRepresentation {
 
         rep.setRequiredActions(reqActions);
 
-        if (user.getAttributes() != null && !user.getAttributes().isEmpty()) {
-            Map<String, List<String>> attrs = new HashMap<>(user.getAttributes());
+        Map<String, List<String>> attributes = user.getAttributes();
+        Map<String, List<String>> copy = null;
+
+        if (attributes != null) {
+            copy = new HashMap<>(attributes);
+            copy.remove(UserModel.LAST_NAME);
+            copy.remove(UserModel.FIRST_NAME);
+        }
+        if (attributes != null && !copy.isEmpty()) {
+            Map<String, List<String>> attrs = new HashMap<>(copy);
             rep.setAttributes(attrs);
         }
 

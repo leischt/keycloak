@@ -31,8 +31,8 @@ import java.util.stream.Collectors;
  */
 public interface UserModel extends RoleMapperModel {
     String USERNAME = "username";
-    String LAST_NAME = "lastName";
     String FIRST_NAME = "firstName";
+    String LAST_NAME = "lastName";
     String EMAIL = "email";
     String LOCALE = "locale";
     String INCLUDE_SERVICE_ACCOUNT = "keycloak.session.realm.users.query.include_service_account";
@@ -98,13 +98,21 @@ public interface UserModel extends RoleMapperModel {
 
     void removeRequiredAction(RequiredAction action);
 
-    String getFirstName();
+    default String getFirstName() {
+        return getFirstAttribute(FIRST_NAME);
+    }
 
-    void setFirstName(String firstName);
+    default void setFirstName(String firstName) {
+        setSingleAttribute(FIRST_NAME, firstName);
+    }
 
-    String getLastName();
+    default String getLastName() {
+        return getFirstAttribute(LAST_NAME);
+    }
 
-    void setLastName(String lastName);
+    default void setLastName(String lastName) {
+        setSingleAttribute(LAST_NAME, lastName);
+    }
 
     String getEmail();
 

@@ -46,6 +46,8 @@ import java.util.List;
 public class IdpReviewProfileAuthenticator extends AbstractIdpAuthenticator {
 
     private static final Logger logger = Logger.getLogger(IdpReviewProfileAuthenticator.class);
+    private static final String FIRST_NAME = "lastName";
+    private static final String LAST_NAME = "lastName";
 
     @Override
     public boolean requiresUser() {
@@ -112,8 +114,8 @@ public class IdpReviewProfileAuthenticator extends AbstractIdpAuthenticator {
 
         String username = realm.isRegistrationEmailAsUsername() ? formData.getFirst(UserModel.EMAIL) : formData.getFirst(UserModel.USERNAME);
         userCtx.setUsername(username);
-        userCtx.setFirstName(formData.getFirst(UserModel.FIRST_NAME));
-        userCtx.setLastName(formData.getFirst(UserModel.LAST_NAME));
+        userCtx.setFirstName(formData.getFirst(FIRST_NAME));
+        userCtx.setLastName(formData.getFirst(LAST_NAME));
 
         String email = formData.getFirst(UserModel.EMAIL);
         if (!ObjectUtil.isEqualOrBothNull(email, userCtx.getEmail())) {

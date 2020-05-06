@@ -29,6 +29,7 @@ import org.keycloak.models.IdentityProviderModel;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.ModelException;
 import org.keycloak.models.RealmModel;
+import org.keycloak.models.UserModel;
 import org.keycloak.services.resources.IdentityBrokerService;
 import org.keycloak.sessions.AuthenticationSessionModel;
 import org.keycloak.util.JsonSerialization;
@@ -48,8 +49,6 @@ public class SerializedBrokeredIdentityContext implements UpdateProfileContext {
     private String brokerUsername;
     private String modelUsername;
     private String email;
-    private String firstName;
-    private String lastName;
     private String brokerSessionId;
     private String brokerUserId;
     private String code;
@@ -114,22 +113,22 @@ public class SerializedBrokeredIdentityContext implements UpdateProfileContext {
 
     @Override
     public String getFirstName() {
-        return firstName;
+        return getFirstAttribute(UserModel.FIRST_NAME);
     }
 
     @Override
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        setSingleAttribute(UserModel.FIRST_NAME, firstName);
     }
 
     @Override
     public String getLastName() {
-        return lastName;
+        return getFirstAttribute(UserModel.LAST_NAME);
     }
 
     @Override
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        setSingleAttribute(UserModel.LAST_NAME, lastName);
     }
 
     public String getBrokerSessionId() {

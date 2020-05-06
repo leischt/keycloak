@@ -160,6 +160,8 @@ public class UserResource {
             if (rep.getAttributes() != null) {
                 attrsToRemove = new HashSet<>(user.getAttributes().keySet());
                 attrsToRemove.removeAll(rep.getAttributes().keySet());
+                attrsToRemove.remove(UserModel.FIRST_NAME);
+                attrsToRemove.remove(UserModel.LAST_NAME);
             } else {
                 attrsToRemove = Collections.emptySet();
             }

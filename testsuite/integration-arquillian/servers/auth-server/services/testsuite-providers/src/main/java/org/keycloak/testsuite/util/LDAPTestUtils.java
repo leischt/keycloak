@@ -93,7 +93,11 @@ public class LDAPTestUtils {
 
             @Override
             public List<String> getAttribute(String name) {
-                if ("postal_code".equals(name) && postalCode != null && postalCode.length > 0) {
+                if (UserModel.LAST_NAME.equals(name)) {
+                    return Collections.singletonList(lastName);
+                } else if (UserModel.FIRST_NAME.equals(name)) {
+                    return Collections.singletonList(firstName);
+                } else if ("postal_code".equals(name) && postalCode != null && postalCode.length > 0) {
                     return Arrays.asList(postalCode);
                 } else if ("street".equals(name) && street != null) {
                     return Collections.singletonList(street);

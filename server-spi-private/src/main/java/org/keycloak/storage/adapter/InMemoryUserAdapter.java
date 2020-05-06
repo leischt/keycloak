@@ -42,8 +42,6 @@ import java.util.Set;
 public class InMemoryUserAdapter implements UserModel {
     private String username;
     private Long createdTimestamp = Time.currentTimeMillis();
-    private String firstName;
-    private String lastName;
     private String email;
     private boolean emailVerified;
     private boolean enabled;
@@ -198,30 +196,6 @@ public class InMemoryUserAdapter implements UserModel {
     public void removeRequiredAction(RequiredAction action) {
         checkReadonly();
         requiredActions.remove(action.name());
-    }
-
-    @Override
-    public String getFirstName() {
-        return firstName;
-    }
-
-    @Override
-    public void setFirstName(String firstName) {
-        checkReadonly();
-        this.firstName = firstName;
-
-    }
-
-    @Override
-    public String getLastName() {
-        return lastName;
-    }
-
-    @Override
-    public void setLastName(String lastName) {
-        checkReadonly();
-        this.lastName = lastName;
-
     }
 
     @Override

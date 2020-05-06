@@ -44,6 +44,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -115,6 +116,14 @@ public class UserAdapter implements UserModel, JpaModel<UserEntity> {
 
     @Override
     public void setSingleAttribute(String name, String value) {
+        if (UserModel.FIRST_NAME.equals(name)) {
+            user.setFirstName(value);
+            return;
+        } else if (UserModel.LAST_NAME.equals(name)) {
+            user.setLastName(value);
+            return;
+        }
+        // Remove all existing
         if (value == null) {
             user.getAttributes().removeIf(a -> a.getName().equals(name));
         } else {
@@ -149,6 +158,13 @@ public class UserAdapter implements UserModel, JpaModel<UserEntity> {
 
     @Override
     public void setAttribute(String name, List<String> values) {
+        if (UserModel.FIRST_NAME.equals(name)) {
+            user.setFirstName(values.get(0));
+            return;
+        } else if (UserModel.LAST_NAME.equals(name)) {
+            user.setLastName(values.get(0));
+            return;
+        }
         // Remove all existing
         removeAttribute(name);
         for (Iterator<String> it = values.stream().filter(Objects::nonNull).iterator(); it.hasNext();) {
@@ -190,6 +206,11 @@ public class UserAdapter implements UserModel, JpaModel<UserEntity> {
 
     @Override
     public String getFirstAttribute(String name) {
+        if (UserModel.FIRST_NAME.equals(name)) {
+            return user.getFirstName();
+        } else if (UserModel.LAST_NAME.equals(name)) {
+            return user.getLastName();
+        }
         for (UserAttributeEntity attr : user.getAttributes()) {
             if (attr.getName().equals(name)) {
                 return attr.getValue();
@@ -200,6 +221,11 @@ public class UserAdapter implements UserModel, JpaModel<UserEntity> {
 
     @Override
     public List<String> getAttribute(String name) {
+        if (UserModel.FIRST_NAME.equals(name)) {
+            return Collections.singletonList(user.getFirstName());
+        } else if (UserModel.LAST_NAME.equals(name)) {
+            return Collections.singletonList(user.getLastName());
+        }
         List<String> result = new ArrayList<>();
         for (UserAttributeEntity attr : user.getAttributes()) {
             if (attr.getName().equals(name)) {
@@ -215,6 +241,8 @@ public class UserAdapter implements UserModel, JpaModel<UserEntity> {
         for (UserAttributeEntity attr : user.getAttributes()) {
             result.add(attr.getName(), attr.getValue());
         }
+        result.add(UserModel.FIRST_NAME, user.getFirstName());
+        result.add(UserModel.LAST_NAME, user.getLastName());
         return result;
     }
 
@@ -271,8 +299,8 @@ public class UserAdapter implements UserModel, JpaModel<UserEntity> {
     }
 
     @Override
-    public void setFirstName(String firstName) {
-        user.setFirstName(firstName);
+    public void setFirstName(String name) {
+        user.setFirstName(name);
     }
 
     @Override
@@ -281,8 +309,8 @@ public class UserAdapter implements UserModel, JpaModel<UserEntity> {
     }
 
     @Override
-    public void setLastName(String lastName) {
-        user.setLastName(lastName);
+    public void setLastName(String name) {
+        user.setLastName(name);
     }
 
     @Override

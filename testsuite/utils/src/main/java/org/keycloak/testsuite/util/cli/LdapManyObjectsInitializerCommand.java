@@ -181,7 +181,11 @@ public class LdapManyObjectsInitializerCommand extends AbstractCommand {
 
             @Override
             public List<String> getAttribute(String name) {
-                if ("street".equals(name)) {
+                if (UserModel.FIRST_NAME.equals(name)) {
+                    return Collections.singletonList(firstName);
+                } else if (UserModel.LAST_NAME.equals(name)) {
+                    return Collections.singletonList(lastName);
+                } else if ("street".equals(name)) {
 
                     List<String> groupNamesList = new ArrayList<>();
                     for (int i=startOffsetGroups ; i<startOffsetGroups + countGroups ; i++) {

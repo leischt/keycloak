@@ -203,30 +203,6 @@ public class UserAdapter implements CachedUserModel {
     }
 
     @Override
-    public String getFirstName() {
-        if (updated != null) return updated.getFirstName();
-        return cached.getFirstName();
-    }
-
-    @Override
-    public void setFirstName(String firstName) {
-        getDelegateForUpdate();
-        updated.setFirstName(firstName);
-    }
-
-    @Override
-    public String getLastName() {
-        if (updated != null) return updated.getLastName();
-        return cached.getLastName();
-    }
-
-    @Override
-    public void setLastName(String lastName) {
-        getDelegateForUpdate();
-        updated.setLastName(lastName);
-    }
-
-    @Override
     public String getEmail() {
         if (updated != null) return updated.getEmail();
         return cached.getEmail();

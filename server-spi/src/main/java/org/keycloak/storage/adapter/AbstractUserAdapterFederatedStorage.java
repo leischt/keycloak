@@ -46,8 +46,6 @@ import java.util.Set;
  * @version $Revision: 1 $
  */
 public abstract class AbstractUserAdapterFederatedStorage implements UserModel {
-    public static String FIRST_NAME_ATTRIBUTE = "FIRST_NAME";
-    public static String LAST_NAME_ATTRIBUTE = "LAST_NAME";
     public static String EMAIL_ATTRIBUTE = "EMAIL";
     public static String EMAIL_VERIFIED_ATTRIBUTE = "EMAIL_VERIFIED";
     public static String CREATED_TIMESTAMP_ATTRIBUTE = "CREATED_TIMESTAMP";

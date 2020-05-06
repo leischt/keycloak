@@ -50,6 +50,7 @@ import org.keycloak.storage.UserStorageProvider;
 import org.keycloak.storage.client.ClientStorageProvider;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -857,7 +858,7 @@ public class JpaUserProvider implements UserProvider, UserCredentialStore {
                     orPredicates.add(builder.like(
                             builder.lower(builder.concat(builder.concat(
                                     builder.coalesce(root.get(UserModel.FIRST_NAME), builder.literal("")), " "),
-                                    builder.coalesce(root.get(UserModel.LAST_NAME), builder.literal("")))),
+                                    builder.coalesce(root.get(LAST_NAME), builder.literal("")))),
                             "%" + value.toLowerCase() + "%"));
 
                     predicates.add(builder.or(orPredicates.toArray(new Predicate[orPredicates.size()])));
@@ -866,7 +867,7 @@ public class JpaUserProvider implements UserProvider, UserCredentialStore {
 
                 case UserModel.USERNAME:
                 case UserModel.FIRST_NAME:
-                case UserModel.LAST_NAME:
+                case LAST_NAME:
                 case UserModel.EMAIL:
                     predicates.add(builder.like(builder.lower(root.get(key)), "%" + value.toLowerCase() + "%"));
             }

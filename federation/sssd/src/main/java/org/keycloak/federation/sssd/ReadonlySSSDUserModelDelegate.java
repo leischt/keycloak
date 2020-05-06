@@ -21,6 +21,8 @@ import org.keycloak.models.UserModel;
 import org.keycloak.models.utils.UserModelDelegate;
 import org.keycloak.storage.ReadOnlyException;
 
+import java.util.List;
+
 /**
  * Readonly proxy for a SSSD UserModel that prevents attributes from being updated.
  *
@@ -50,6 +52,26 @@ public class ReadonlySSSDUserModelDelegate extends UserModelDelegate implements 
     @Override
     public void setFirstName(String first) {
         throw new ReadOnlyException("Federated storage is not writable");
+    }
+
+    @Override
+    public void setSingleAttribute(String name, String value) {
+        if (UserModel.LAST_NAME.equals(name)) {
+            throw new ReadOnlyException("Federated storage is not writable");
+        } else if (UserModel.FIRST_NAME.equals(name)) {
+            throw new ReadOnlyException("Federated storage is not writable");
+        }
+        super.setSingleAttribute(name, value);
+    }
+
+    @Override
+    public void setAttribute(String name, List<String> value) {
+        if (UserModel.LAST_NAME.equals(name)) {
+            throw new ReadOnlyException("Federated storage is not writable");
+        } else if (UserModel.FIRST_NAME.equals(name)) {
+            throw new ReadOnlyException("Federated storage is not writable");
+        }
+        super.setAttribute(name, value);
     }
 
     @Override

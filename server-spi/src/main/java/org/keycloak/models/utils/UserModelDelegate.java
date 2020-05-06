@@ -120,26 +120,6 @@ public class UserModelDelegate implements UserModel {
     }
 
     @Override
-    public String getFirstName() {
-        return delegate.getFirstName();
-    }
-
-    @Override
-    public void setFirstName(String firstName) {
-        delegate.setFirstName(firstName);
-    }
-
-    @Override
-    public String getLastName() {
-        return delegate.getLastName();
-    }
-
-    @Override
-    public void setLastName(String lastName) {
-        delegate.setLastName(lastName);
-    }
-
-    @Override
     public String getEmail() {
         return delegate.getEmail();
     }
