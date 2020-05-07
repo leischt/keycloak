@@ -99,7 +99,6 @@ public interface ClientModel extends ClientScopeModel, RoleContainerModel,  Prot
 
     void setBaseUrl(String url);
 
-
     boolean isBearerOnly();
     void setBearerOnly(boolean only);
 

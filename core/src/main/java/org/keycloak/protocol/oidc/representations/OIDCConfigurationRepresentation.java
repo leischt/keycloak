@@ -122,6 +122,12 @@ public class OIDCConfigurationRepresentation {
     @JsonProperty("tls_client_certificate_bound_access_tokens")
     private Boolean tlsClientCertificateBoundAccessTokens;
 
+    @JsonProperty("backchannel_logout_supported")
+    private Boolean backchannelLogoutSupported;
+
+    @JsonProperty("backchannel_logout_session_supported")
+    private Boolean backchannelLogoutSessionSupported;
+
     protected Map<String, Object> otherClaims = new HashMap<String, Object>();
 
     public String getIssuer() {
@@ -371,4 +377,19 @@ public class OIDCConfigurationRepresentation {
         otherClaims.put(name, value);
     }
 
+    public Boolean getBackchannelLogoutSupported() {
+        return backchannelLogoutSupported;
+    }
+
+    public Boolean getBackchannelLogoutSessionSupported() {
+        return backchannelLogoutSessionSupported;
+    }
+
+    public void setBackchannelLogoutSessionSupported(Boolean backchannelLogoutSessionSupported) {
+        this.backchannelLogoutSessionSupported = backchannelLogoutSessionSupported;
+    }
+
+    public void setBackchannelLogoutSupported(Boolean backchannelLogoutSupported) {
+        this.backchannelLogoutSupported = backchannelLogoutSupported;
+    }
 }

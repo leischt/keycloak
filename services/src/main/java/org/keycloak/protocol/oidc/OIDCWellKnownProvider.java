@@ -134,6 +134,9 @@ public class OIDCWellKnownProvider implements WellKnownProvider {
         // https://tools.ietf.org/html/draft-ietf-oauth-mtls-08#section-6.2
         config.setTlsClientCertificateBoundAccessTokens(true);
 
+        config.setBackchannelLogoutSupported(true);
+        config.setBackchannelLogoutSessionSupported(true);
+
         return config;
     }
 

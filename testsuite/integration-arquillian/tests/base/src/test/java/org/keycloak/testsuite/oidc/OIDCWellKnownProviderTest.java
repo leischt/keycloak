@@ -161,6 +161,9 @@ public class OIDCWellKnownProviderTest extends AbstractKeycloakTest {
             // https://tools.ietf.org/html/draft-ietf-oauth-mtls-08#section-6.2
             Assert.assertTrue(oidcConfig.getTlsClientCertificateBoundAccessTokens());
 
+            Assert.assertTrue(oidcConfig.getBackchannelLogoutSupported());
+            Assert.assertTrue(oidcConfig.getBackchannelLogoutSessionSupported());
+
         } finally {
             client.close();
         }
