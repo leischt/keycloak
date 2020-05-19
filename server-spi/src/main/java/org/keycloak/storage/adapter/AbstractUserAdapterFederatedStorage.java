@@ -16,6 +16,7 @@
  */
 package org.keycloak.storage.adapter;
 
+import org.keycloak.common.util.MultivaluedHashMap;
 import org.keycloak.component.ComponentModel;
 import org.keycloak.models.ClientModel;
 import org.keycloak.models.GroupModel;
@@ -46,6 +47,8 @@ import java.util.Set;
  * @version $Revision: 1 $
  */
 public abstract class AbstractUserAdapterFederatedStorage implements UserModel {
+    public static String FIRST_NAME_ATTRIBUTE = "FIRST_NAME";
+    public static String LAST_NAME_ATTRIBUTE = "LAST_NAME";
     public static String EMAIL_ATTRIBUTE = "EMAIL";
     public static String EMAIL_VERIFIED_ATTRIBUTE = "EMAIL_VERIFIED";
     public static String CREATED_TIMESTAMP_ATTRIBUTE = "CREATED_TIMESTAMP";
@@ -334,7 +337,7 @@ public abstract class AbstractUserAdapterFederatedStorage implements UserModel {
 
     @Override
     public void setSingleAttribute(String name, String value) {
-        getFederatedStorage().setSingleAttribute(realm, this.getId(), name, value);
+        getFederatedStorage().setSingleAttribute(realm, this.getId(), mapAttribute(name), value);
 
     }
 
@@ -346,58 +349,41 @@ public abstract class AbstractUserAdapterFederatedStorage implements UserModel {
 
     @Override
     public void setAttribute(String name, List<String> values) {
-        getFederatedStorage().setAttribute(realm, this.getId(), name, values);
+        getFederatedStorage().setAttribute(realm, this.getId(), mapAttribute(name), values);
 
     }
 
     @Override
     public String getFirstAttribute(String name) {
-        return getFederatedStorage().getAttributes(realm, this.getId()).getFirst(name);
+        return getFederatedStorage().getAttributes(realm, this.getId()).getFirst(mapAttribute(name));
     }
 
     @Override
     public Map<String, List<String>> getAttributes() {
-        return getFederatedStorage().getAttributes(realm, this.getId());
+        MultivaluedHashMap<String, String> attributes = getFederatedStorage().getAttributes(realm, this.getId());
+        if (attributes == null) {
+            attributes = new MultivaluedHashMap<>();
+        }
+        List<String> firstName = attributes.remove(FIRST_NAME_ATTRIBUTE);
+        attributes.add(UserModel.FIRST_NAME, firstName != null && firstName.size() >= 1 ? firstName.get(0) : null);
+        List<String> lastName = attributes.remove(LAST_NAME_ATTRIBUTE);
+        attributes.add(UserModel.LAST_NAME, lastName != null && lastName.size() >= 1 ? lastName.get(0) : null);
+        return attributes;
     }
 
     @Override
     public List<String> getAttribute(String name) {
-        List<String> result = getFederatedStorage().getAttributes(realm, this.getId()).get(name);
+        List<String> result = getFederatedStorage().getAttributes(realm, this.getId()).get(mapAttribute(name));
         return (result == null) ? Collections.emptyList() : result;
     }
 
-    @Override
-    public String getFirstName() {
-        return getFirstAttribute(FIRST_NAME_ATTRIBUTE);
-    }
-
-    /**
-     * Stores as attribute in federated storage.
-     * FIRST_NAME_ATTRIBUTE
-     *
-     * @param firstName
-     */
-    @Override
-    public void setFirstName(String firstName) {
-        setSingleAttribute(FIRST_NAME_ATTRIBUTE, firstName);
-
-    }
-
-    @Override
-    public String getLastName() {
-        return getFirstAttribute(LAST_NAME_ATTRIBUTE);
-    }
-
-    /**
-     * Stores as attribute in federated storage.
-     * LAST_NAME_ATTRIBUTE
-     *
-     * @param lastName
-     */
-    @Override
-    public void setLastName(String lastName) {
-        setSingleAttribute(LAST_NAME_ATTRIBUTE, lastName);
-
+    private String mapAttribute(String attributeName) {
+        if (UserModel.FIRST_NAME.equals(attributeName)) {
+            return FIRST_NAME_ATTRIBUTE;
+        } else if (UserModel.LAST_NAME.equals(attributeName)) {
+            return LAST_NAME_ATTRIBUTE;
+        }
+        return attributeName;
     }
 
     @Override
