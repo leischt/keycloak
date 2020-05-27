@@ -122,6 +122,9 @@ public class UserAdapter implements UserModel, JpaModel<UserEntity> {
         } else if (UserModel.LAST_NAME.equals(name)) {
             user.setLastName(value);
             return;
+        } else if (UserModel.EMAIL.equals(name)) {
+            setEmail(value);
+            return;
         }
         // Remove all existing
         if (value == null) {
@@ -163,6 +166,9 @@ public class UserAdapter implements UserModel, JpaModel<UserEntity> {
             return;
         } else if (UserModel.LAST_NAME.equals(name)) {
             user.setLastName(values.get(0));
+            return;
+        } else if (UserModel.EMAIL.equals(name)) {
+            setEmail(values.get(0));
             return;
         }
         // Remove all existing
@@ -210,6 +216,8 @@ public class UserAdapter implements UserModel, JpaModel<UserEntity> {
             return user.getFirstName();
         } else if (UserModel.LAST_NAME.equals(name)) {
             return user.getLastName();
+        } else if (UserModel.EMAIL.equals(name)) {
+            return user.getEmail();
         }
         for (UserAttributeEntity attr : user.getAttributes()) {
             if (attr.getName().equals(name)) {
@@ -225,6 +233,8 @@ public class UserAdapter implements UserModel, JpaModel<UserEntity> {
             return Collections.singletonList(user.getFirstName());
         } else if (UserModel.LAST_NAME.equals(name)) {
             return Collections.singletonList(user.getLastName());
+        } else if (UserModel.EMAIL.equals(name)) {
+            return Collections.singletonList(user.getEmail());
         }
         List<String> result = new ArrayList<>();
         for (UserAttributeEntity attr : user.getAttributes()) {
@@ -243,6 +253,7 @@ public class UserAdapter implements UserModel, JpaModel<UserEntity> {
         }
         result.add(UserModel.FIRST_NAME, user.getFirstName());
         result.add(UserModel.LAST_NAME, user.getLastName());
+        result.add(UserModel.EMAIL, user.getEmail());
         return result;
     }
 
@@ -299,8 +310,8 @@ public class UserAdapter implements UserModel, JpaModel<UserEntity> {
     }
 
     @Override
-    public void setFirstName(String name) {
-        user.setFirstName(name);
+    public void setFirstName(String firstName) {
+        user.setFirstName(firstName);
     }
 
     @Override
@@ -309,8 +320,8 @@ public class UserAdapter implements UserModel, JpaModel<UserEntity> {
     }
 
     @Override
-    public void setLastName(String name) {
-        user.setLastName(name);
+    public void setLastName(String lastName) {
+        user.setLastName(lastName);
     }
 
     @Override

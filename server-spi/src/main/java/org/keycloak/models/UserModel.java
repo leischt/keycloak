@@ -114,9 +114,14 @@ public interface UserModel extends RoleMapperModel {
         setSingleAttribute(LAST_NAME, lastName);
     }
 
-    String getEmail();
+    default String getEmail() {
+        return getFirstAttribute(EMAIL);
+    }
 
-    void setEmail(String email);
+    default void setEmail(String email) {
+        email = email==null ? null : email.toLowerCase();
+        setSingleAttribute(EMAIL, email);
+    }
 
     boolean isEmailVerified();
 

@@ -230,6 +230,7 @@ public class ModelToRepresentation {
             copy = new HashMap<>(attributes);
             copy.remove(UserModel.LAST_NAME);
             copy.remove(UserModel.FIRST_NAME);
+            copy.remove(UserModel.EMAIL);
         }
         if (attributes != null && !copy.isEmpty()) {
             Map<String, List<String>> attrs = new HashMap<>(copy);

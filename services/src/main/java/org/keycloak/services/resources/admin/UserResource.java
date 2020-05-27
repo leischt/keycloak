@@ -162,6 +162,7 @@ public class UserResource {
                 attrsToRemove.removeAll(rep.getAttributes().keySet());
                 attrsToRemove.remove(UserModel.FIRST_NAME);
                 attrsToRemove.remove(UserModel.LAST_NAME);
+                attrsToRemove.remove(UserModel.EMAIL);
             } else {
                 attrsToRemove = Collections.emptySet();
             }

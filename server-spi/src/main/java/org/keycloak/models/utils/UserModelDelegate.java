@@ -120,16 +120,6 @@ public class UserModelDelegate implements UserModel {
     }
 
     @Override
-    public String getEmail() {
-        return delegate.getEmail();
-    }
-
-    @Override
-    public void setEmail(String email) {
-        delegate.setEmail(email);
-    }
-
-    @Override
     public boolean isEmailVerified() {
         return delegate.isEmailVerified();
     }

@@ -185,6 +185,8 @@ public class LdapManyObjectsInitializerCommand extends AbstractCommand {
                     return Collections.singletonList(firstName);
                 } else if (UserModel.LAST_NAME.equals(name)) {
                     return Collections.singletonList(lastName);
+                } else if (UserModel.EMAIL.equals(name)) {
+                    return Collections.singletonList(email);
                 } else if ("street".equals(name)) {
 
                     List<String> groupNamesList = new ArrayList<>();

@@ -147,6 +147,7 @@ public class AccountRestService {
         Map<String, List<String>> copiedAttributes = new HashMap<>(attributes);
         copiedAttributes.remove(UserModel.FIRST_NAME);
         copiedAttributes.remove(UserModel.LAST_NAME);
+        copiedAttributes.remove(UserModel.EMAIL);
         rep.setAttributes(copiedAttributes);
 
         return Cors.add(request, Response.ok(rep)).auth().allowedOrigins(auth.getToken()).build();

@@ -203,19 +203,6 @@ public class UserAdapter implements CachedUserModel {
     }
 
     @Override
-    public String getEmail() {
-        if (updated != null) return updated.getEmail();
-        return cached.getEmail();
-    }
-
-    @Override
-    public void setEmail(String email) {
-        getDelegateForUpdate();
-        email = KeycloakModelUtils.toLowerCaseSafe(email);
-        updated.setEmail(email);
-    }
-
-    @Override
     public boolean isEmailVerified() {
         if (updated != null) return updated.isEmailVerified();
         return cached.isEmailVerified();

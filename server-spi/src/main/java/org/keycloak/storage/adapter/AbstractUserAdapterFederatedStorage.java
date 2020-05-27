@@ -368,6 +368,8 @@ public abstract class AbstractUserAdapterFederatedStorage implements UserModel {
         attributes.add(UserModel.FIRST_NAME, firstName != null && firstName.size() >= 1 ? firstName.get(0) : null);
         List<String> lastName = attributes.remove(LAST_NAME_ATTRIBUTE);
         attributes.add(UserModel.LAST_NAME, lastName != null && lastName.size() >= 1 ? lastName.get(0) : null);
+        List<String> email = attributes.remove(EMAIL_ATTRIBUTE);
+        attributes.add(UserModel.EMAIL, email != null && email.size() >= 1 ? email.get(0) : null);
         return attributes;
     }
 
@@ -382,25 +384,10 @@ public abstract class AbstractUserAdapterFederatedStorage implements UserModel {
             return FIRST_NAME_ATTRIBUTE;
         } else if (UserModel.LAST_NAME.equals(attributeName)) {
             return LAST_NAME_ATTRIBUTE;
+        } else if (UserModel.EMAIL.equals(attributeName)) {
+            return EMAIL_ATTRIBUTE;
         }
         return attributeName;
-    }
-
-    @Override
-    public String getEmail() {
-        return getFirstAttribute(EMAIL_ATTRIBUTE);
-    }
-
-    /**
-     * Stores as attribute in federated storage.
-     * EMAIL_ATTRIBUTE
-     *
-     * @param email
-     */
-    @Override
-    public void setEmail(String email) {
-        setSingleAttribute(EMAIL_ATTRIBUTE, email);
-
     }
 
     @Override

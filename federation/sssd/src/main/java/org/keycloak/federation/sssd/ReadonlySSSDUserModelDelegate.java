@@ -60,6 +60,8 @@ public class ReadonlySSSDUserModelDelegate extends UserModelDelegate implements 
             throw new ReadOnlyException("Federated storage is not writable");
         } else if (UserModel.FIRST_NAME.equals(name)) {
             throw new ReadOnlyException("Federated storage is not writable");
+        } else if (UserModel.EMAIL.equals(name)) {
+            throw new ReadOnlyException("Federated storage is not writable");
         }
         super.setSingleAttribute(name, value);
     }
@@ -69,6 +71,8 @@ public class ReadonlySSSDUserModelDelegate extends UserModelDelegate implements 
         if (UserModel.LAST_NAME.equals(name)) {
             throw new ReadOnlyException("Federated storage is not writable");
         } else if (UserModel.FIRST_NAME.equals(name)) {
+            throw new ReadOnlyException("Federated storage is not writable");
+        } else if (UserModel.EMAIL.equals(name)) {
             throw new ReadOnlyException("Federated storage is not writable");
         }
         super.setAttribute(name, value);

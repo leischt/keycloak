@@ -42,7 +42,6 @@ import java.util.Set;
 public class InMemoryUserAdapter implements UserModel {
     private String username;
     private Long createdTimestamp = Time.currentTimeMillis();
-    private String email;
     private boolean emailVerified;
     private boolean enabled;
 
@@ -196,19 +195,6 @@ public class InMemoryUserAdapter implements UserModel {
     public void removeRequiredAction(RequiredAction action) {
         checkReadonly();
         requiredActions.remove(action.name());
-    }
-
-    @Override
-    public String getEmail() {
-        return email;
-    }
-
-    @Override
-    public void setEmail(String email) {
-        checkReadonly();
-        if (email != null) email = email.toLowerCase();
-        this.email = email;
-
     }
 
     @Override
