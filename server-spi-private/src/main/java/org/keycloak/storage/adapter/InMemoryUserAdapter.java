@@ -40,12 +40,9 @@ import java.util.Set;
  * @version $Revision: 1 $
  */
 public class InMemoryUserAdapter implements UserModel {
-    private String username;
     private Long createdTimestamp = Time.currentTimeMillis();
     private boolean emailVerified;
     private boolean enabled;
-
-    private String realmId;
 
     private Set<String> roleIds = new HashSet<>();
     private Set<String> groupIds = new HashSet<>();
@@ -88,18 +85,6 @@ public class InMemoryUserAdapter implements UserModel {
     @Override
     public String getId() {
         return id;
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
-    }
-
-    @Override
-    public void setUsername(String username) {
-        checkReadonly();
-        this.username = username.toLowerCase();
-
     }
 
     @Override

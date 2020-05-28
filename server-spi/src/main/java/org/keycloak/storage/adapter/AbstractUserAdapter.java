@@ -49,6 +49,7 @@ import java.util.Set;
  * @author <a href="mailto:bill@burkecentral.com">Bill Burke</a>
  * @version $Revision: 1 $
  */
+// TODO: This class is no longer abstract, nor does it work correctly because the username is stored elsewhere, however it is basically unused as of now
 public abstract class AbstractUserAdapter implements UserModel {
     protected KeycloakSession session;
     protected RealmModel realm;

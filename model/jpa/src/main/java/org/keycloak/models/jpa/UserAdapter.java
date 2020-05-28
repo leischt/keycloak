@@ -125,6 +125,9 @@ public class UserAdapter implements UserModel, JpaModel<UserEntity> {
         } else if (UserModel.EMAIL.equals(name)) {
             setEmail(value);
             return;
+        } else if (UserModel.USERNAME.equals(name)) {
+            setUsername(value);
+            return;
         }
         // Remove all existing
         if (value == null) {
@@ -169,6 +172,9 @@ public class UserAdapter implements UserModel, JpaModel<UserEntity> {
             return;
         } else if (UserModel.EMAIL.equals(name)) {
             setEmail(values.get(0));
+            return;
+        } else if (UserModel.USERNAME.equals(name)) {
+            setUsername(values.get(0));
             return;
         }
         // Remove all existing
@@ -218,6 +224,8 @@ public class UserAdapter implements UserModel, JpaModel<UserEntity> {
             return user.getLastName();
         } else if (UserModel.EMAIL.equals(name)) {
             return user.getEmail();
+        } else if (UserModel.USERNAME.equals(name)) {
+            return user.getUsername();
         }
         for (UserAttributeEntity attr : user.getAttributes()) {
             if (attr.getName().equals(name)) {
@@ -235,6 +243,8 @@ public class UserAdapter implements UserModel, JpaModel<UserEntity> {
             return Collections.singletonList(user.getLastName());
         } else if (UserModel.EMAIL.equals(name)) {
             return Collections.singletonList(user.getEmail());
+        } else if (UserModel.USERNAME.equals(name)) {
+            return Collections.singletonList(user.getUsername());
         }
         List<String> result = new ArrayList<>();
         for (UserAttributeEntity attr : user.getAttributes()) {
@@ -254,6 +264,7 @@ public class UserAdapter implements UserModel, JpaModel<UserEntity> {
         result.add(UserModel.FIRST_NAME, user.getFirstName());
         result.add(UserModel.LAST_NAME, user.getLastName());
         result.add(UserModel.EMAIL, user.getEmail());
+        result.add(UserModel.USERNAME, user.getUsername());
         return result;
     }
 

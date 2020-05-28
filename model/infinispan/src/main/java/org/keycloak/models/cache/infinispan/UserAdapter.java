@@ -100,19 +100,6 @@ public class UserAdapter implements CachedUserModel {
     }
 
     @Override
-    public String getUsername() {
-        if (updated != null) return updated.getUsername();
-        return cached.getUsername();
-    }
-
-    @Override
-    public void setUsername(String username) {
-        getDelegateForUpdate();
-        username = KeycloakModelUtils.toLowerCaseSafe(username);
-        updated.setUsername(username);
-    }
-
-    @Override
     public Long getCreatedTimestamp() {
         // get from cached always as it is immutable
         return cached.getCreatedTimestamp();

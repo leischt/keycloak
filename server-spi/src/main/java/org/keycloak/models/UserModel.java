@@ -47,9 +47,14 @@ public interface UserModel extends RoleMapperModel {
 
     String getId();
 
-    String getUsername();
+    default String getUsername() {
+        return getFirstAttribute(UserModel.USERNAME);
+    }
 
-    void setUsername(String username);
+    default void setUsername(String username) {
+        username = username==null ? null : username.toLowerCase();
+        setSingleAttribute(UserModel.USERNAME, username);
+    }
     
     /**
      * Get timestamp of user creation. May be null for old users created before this feature introduction.

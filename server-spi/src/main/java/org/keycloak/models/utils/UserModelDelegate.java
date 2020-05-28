@@ -45,16 +45,6 @@ public class UserModelDelegate implements UserModel {
     }
 
     @Override
-    public String getUsername() {
-        return delegate.getUsername();
-    }
-
-    @Override
-    public void setUsername(String username) {
-        delegate.setUsername(username);
-    }
-
-    @Override
     public boolean isEnabled() {
         return delegate.isEnabled();
     }
