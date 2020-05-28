@@ -117,12 +117,12 @@ public class UserMapStorage implements UserLookupProvider, UserStorageProvider, 
         } else {
             user = new AbstractUserAdapterFederatedStorage(session, realm, model) {
                 @Override
-                public String getUsername() {
+                public String doGetUsername() {
                     return username;
                 }
 
                 @Override
-                public void setUsername(String innerUsername) {
+                public void doSetUsername(String innerUsername) {
                     if (! Objects.equals(innerUsername, username)) {
                         throw new RuntimeException("Unsupported");
                     }

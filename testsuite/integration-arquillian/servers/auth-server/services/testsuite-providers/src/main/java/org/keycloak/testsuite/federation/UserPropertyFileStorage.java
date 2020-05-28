@@ -72,19 +72,19 @@ public class UserPropertyFileStorage implements UserLookupProvider, UserStorageP
         if (federatedStorageEnabled) {
             return new AbstractUserAdapterFederatedStorage(session, realm,  model) {
                 @Override
-                public String getUsername() {
+                protected String doGetUsername() {
                     return username;
                 }
 
                 @Override
-                public void setUsername(String username) {
-                    throw new RuntimeException("Unsupported");
+                protected void doSetUsername(String username) {
+
                 }
             };
         } else {
             return new AbstractUserAdapter(session, realm, model) {
                 @Override
-                public String getUsername() {
+                public String doGetUsername() {
                     return username;
                 }
             };

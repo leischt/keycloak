@@ -48,6 +48,8 @@ public class IdpReviewProfileAuthenticator extends AbstractIdpAuthenticator {
     private static final Logger logger = Logger.getLogger(IdpReviewProfileAuthenticator.class);
     private static final String FIRST_NAME = "lastName";
     private static final String LAST_NAME = "lastName";
+    private static final String EMAIL = "email";
+    private static final String USERNAME = "username";
 
     @Override
     public boolean requiresUser() {
@@ -112,12 +114,12 @@ public class IdpReviewProfileAuthenticator extends AbstractIdpAuthenticator {
             return;
         }
 
-        String username = realm.isRegistrationEmailAsUsername() ? formData.getFirst(UserModel.EMAIL) : formData.getFirst(UserModel.USERNAME);
+        String username = realm.isRegistrationEmailAsUsername() ? formData.getFirst(EMAIL) : formData.getFirst(USERNAME);
         userCtx.setUsername(username);
         userCtx.setFirstName(formData.getFirst(FIRST_NAME));
         userCtx.setLastName(formData.getFirst(LAST_NAME));
 
-        String email = formData.getFirst(UserModel.EMAIL);
+        String email = formData.getFirst(EMAIL);
         if (!ObjectUtil.isEqualOrBothNull(email, userCtx.getEmail())) {
             if (logger.isTraceEnabled()) {
                 logger.tracef("Email updated on updateProfile page to '%s' ", email);

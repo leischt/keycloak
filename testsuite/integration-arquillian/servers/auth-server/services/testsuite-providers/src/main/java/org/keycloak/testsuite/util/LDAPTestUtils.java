@@ -72,11 +72,6 @@ public class LDAPTestUtils {
         UserModel helperUser = new UserModelDelegate(null) {
 
             @Override
-            public String getUsername() {
-                return username;
-            }
-
-            @Override
             public String getFirstAttribute(String name) {
                 if (UserModel.LAST_NAME.equals(name)) {
                     return lastName;
@@ -84,6 +79,8 @@ public class LDAPTestUtils {
                     return firstName;
                 } else if (UserModel.EMAIL.equals(name)) {
                     return email;
+                } else if (UserModel.USERNAME.equals(name)) {
+                    return username;
                 }
                 return super.getFirstAttribute(name);
             }
@@ -96,6 +93,8 @@ public class LDAPTestUtils {
                     return Collections.singletonList(firstName);
                 } else if (UserModel.EMAIL.equals(name)) {
                     return Collections.singletonList(email);
+                } else if (UserModel.USERNAME.equals(name)) {
+                    return Collections.singletonList(username);
                 } else if ("postal_code".equals(name) && postalCode != null && postalCode.length > 0) {
                     return Arrays.asList(postalCode);
                 } else if ("street".equals(name) && street != null) {

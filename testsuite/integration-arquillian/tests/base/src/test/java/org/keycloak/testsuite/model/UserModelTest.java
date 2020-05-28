@@ -250,8 +250,8 @@ public class UserModelTest extends AbstractTestRealmKeycloakTest {
             Assert.assertThat(user.getFirstAttribute("key3"), nullValue());
 
             Map<String, List<String>> allAttrVals = user.getAttributes();
-            Assert.assertThat(allAttrVals.keySet(), hasSize(5));
-            Assert.assertThat(allAttrVals.keySet(), containsInAnyOrder(UserModel.FIRST_NAME, UserModel.LAST_NAME, UserModel.EMAIL, "key1", "key2"));
+            Assert.assertThat(allAttrVals.keySet(), hasSize(6));
+            Assert.assertThat(allAttrVals.keySet(), containsInAnyOrder(UserModel.USERNAME, UserModel.FIRST_NAME, UserModel.LAST_NAME, UserModel.EMAIL, "key1", "key2"));
             Assert.assertThat(allAttrVals.get("key1"), equalTo(user.getAttribute("key1")));
             Assert.assertThat(allAttrVals.get("key2"), equalTo(user.getAttribute("key2")));
 
@@ -300,8 +300,8 @@ public class UserModelTest extends AbstractTestRealmKeycloakTest {
             Map<String, List<String>> allAttrVals = user.getAttributes();
 
             // Ensure same transaction is able to see updated value
-            Assert.assertThat(allAttrVals.keySet(), hasSize(4));
-            Assert.assertThat(allAttrVals.keySet(), containsInAnyOrder("key1", UserModel.FIRST_NAME, UserModel.LAST_NAME, UserModel.EMAIL));
+            Assert.assertThat(allAttrVals.keySet(), hasSize(5));
+            Assert.assertThat(allAttrVals.keySet(), containsInAnyOrder("key1", UserModel.FIRST_NAME, UserModel.LAST_NAME, UserModel.EMAIL, UserModel.USERNAME));
             Assert.assertThat(allAttrVals.get("key1"), contains("val2"));
         });
     }
@@ -323,6 +323,7 @@ public class UserModelTest extends AbstractTestRealmKeycloakTest {
             expected.put(UserModel.FIRST_NAME, Collections.singletonList(null));
             expected.put(UserModel.LAST_NAME, Collections.singletonList(null));
             expected.put(UserModel.EMAIL, Collections.singletonList(null));
+            expected.put(UserModel.USERNAME, Collections.singletonList("user"));
 
             UserModel user = currentSession.users().addUser(realm, "user");
 

@@ -87,12 +87,12 @@ public class BackwardsCompatibilityUserStorage implements UserLookupProvider, Us
     private UserModel createUser(RealmModel realm, String username) {
         return new AbstractUserAdapterFederatedStorage(session, realm,  model) {
             @Override
-            public String getUsername() {
+            public String doGetUsername() {
                 return username;
             }
 
             @Override
-            public void setUsername(String username1) {
+            public void doSetUsername(String username1) {
                 if (!username1.equals(username)) {
                     throw new RuntimeException("Unsupported to change username");
                 }

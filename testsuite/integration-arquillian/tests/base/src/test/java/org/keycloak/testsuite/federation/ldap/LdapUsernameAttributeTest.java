@@ -30,6 +30,8 @@ import org.keycloak.storage.ldap.idm.model.LDAPObject;
 import org.keycloak.testsuite.runonserver.RunOnServerException;
 import org.keycloak.testsuite.util.LDAPRule;
 
+import javax.ws.rs.InternalServerErrorException;
+
 /**
  *
  * @author rmartinc

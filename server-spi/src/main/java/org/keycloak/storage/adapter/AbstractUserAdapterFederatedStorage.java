@@ -65,6 +65,20 @@ public abstract class AbstractUserAdapterFederatedStorage implements UserModel {
         this.storageProviderModel = storageProviderModel;
     }
 
+    protected abstract String doGetUsername();
+
+    protected abstract void doSetUsername(String username);
+
+    @Override
+    public void setUsername(String username) {
+        doSetUsername(username);
+    }
+
+    @Override
+    public String getUsername() {
+        return doGetUsername();
+    }
+
     public UserFederatedStorageProvider getFederatedStorage() {
         return session.userFederatedStorage();
     }
@@ -337,6 +351,9 @@ public abstract class AbstractUserAdapterFederatedStorage implements UserModel {
 
     @Override
     public void setSingleAttribute(String name, String value) {
+        if (UserModel.USERNAME.equals(name)) {
+            setUsername(value);
+        }
         getFederatedStorage().setSingleAttribute(realm, this.getId(), mapAttribute(name), value);
 
     }
@@ -349,12 +366,18 @@ public abstract class AbstractUserAdapterFederatedStorage implements UserModel {
 
     @Override
     public void setAttribute(String name, List<String> values) {
+        if (UserModel.USERNAME.equals(name)) {
+            setUsername(values.get(0));
+        }
         getFederatedStorage().setAttribute(realm, this.getId(), mapAttribute(name), values);
 
     }
 
     @Override
     public String getFirstAttribute(String name) {
+        if (UserModel.USERNAME.equals(name)) {
+            return getUsername();
+        }
         return getFederatedStorage().getAttributes(realm, this.getId()).getFirst(mapAttribute(name));
     }
 
@@ -370,11 +393,15 @@ public abstract class AbstractUserAdapterFederatedStorage implements UserModel {
         attributes.add(UserModel.LAST_NAME, lastName != null && lastName.size() >= 1 ? lastName.get(0) : null);
         List<String> email = attributes.remove(EMAIL_ATTRIBUTE);
         attributes.add(UserModel.EMAIL, email != null && email.size() >= 1 ? email.get(0) : null);
+        attributes.add(UserModel.USERNAME, getUsername());
         return attributes;
     }
 
     @Override
     public List<String> getAttribute(String name) {
+        if (UserModel.USERNAME.equals(name)) {
+            return Collections.singletonList(getUsername());
+        }
         List<String> result = getFederatedStorage().getAttributes(realm, this.getId()).get(mapAttribute(name));
         return (result == null) ? Collections.emptyList() : result;
     }

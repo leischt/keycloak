@@ -148,6 +148,7 @@ public class AccountRestService {
         copiedAttributes.remove(UserModel.FIRST_NAME);
         copiedAttributes.remove(UserModel.LAST_NAME);
         copiedAttributes.remove(UserModel.EMAIL);
+        copiedAttributes.remove(UserModel.USERNAME);
         rep.setAttributes(copiedAttributes);
 
         return Cors.add(request, Response.ok(rep)).auth().allowedOrigins(auth.getToken()).build();

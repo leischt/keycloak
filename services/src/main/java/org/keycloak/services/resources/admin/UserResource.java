@@ -163,6 +163,7 @@ public class UserResource {
                 attrsToRemove.remove(UserModel.FIRST_NAME);
                 attrsToRemove.remove(UserModel.LAST_NAME);
                 attrsToRemove.remove(UserModel.EMAIL);
+                attrsToRemove.remove(UserModel.USERNAME);
             } else {
                 attrsToRemove = Collections.emptySet();
             }

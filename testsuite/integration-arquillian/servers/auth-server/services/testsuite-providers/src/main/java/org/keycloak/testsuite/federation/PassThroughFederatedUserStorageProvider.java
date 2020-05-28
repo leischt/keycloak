@@ -156,12 +156,12 @@ public class PassThroughFederatedUserStorageProvider implements
     private UserModel getUserModel(final RealmModel realm) {
         return new AbstractUserAdapterFederatedStorage(session, realm, component) {
             @Override
-            public String getUsername() {
+            public String doGetUsername() {
                 return PASSTHROUGH_USERNAME;
             }
 
             @Override
-            public void setUsername(String username) {
+            public void doSetUsername(String username) {
 
             }
         };

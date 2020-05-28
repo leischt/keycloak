@@ -73,8 +73,8 @@ public class FreeMarkerUtil {
     }
 
     private Template getTemplate(String templateName, Theme theme) throws IOException {
-        Configuration cfg = new Configuration();
-        
+        Configuration cfg = new Configuration(Configuration.VERSION_2_3_26);
+
         // Assume *.ftl files are html.  This lets freemarker know how to
         // sanitize and prevent XSS attacks.
         if (templateName.toLowerCase().endsWith(".ftl")) {

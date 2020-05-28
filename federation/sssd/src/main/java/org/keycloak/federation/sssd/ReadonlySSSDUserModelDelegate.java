@@ -56,20 +56,20 @@ public class ReadonlySSSDUserModelDelegate extends UserModelDelegate implements 
 
     @Override
     public void setSingleAttribute(String name, String value) {
-        makeSpecialAttributesReadonly(name);
+        setSpecialAttributesToReadonly(name);
         super.setSingleAttribute(name, value);
     }
 
     @Override
     public void setAttribute(String name, List<String> value) {
-        makeSpecialAttributesReadonly(name);
+        setSpecialAttributesToReadonly(name);
         super.setAttribute(name, value);
     }
 
-    private void makeSpecialAttributesReadonly(String name) {
-        if (UserModel.LAST_NAME.equals(name)) {
+    private void setSpecialAttributesToReadonly(String name) {
+        if (UserModel.FIRST_NAME.equals(name)) {
             throw new ReadOnlyException("Federated storage is not writable");
-        } else if (UserModel.FIRST_NAME.equals(name)) {
+        } else if (UserModel.LAST_NAME.equals(name)) {
             throw new ReadOnlyException("Federated storage is not writable");
         } else if (UserModel.EMAIL.equals(name)) {
             throw new ReadOnlyException("Federated storage is not writable");

@@ -48,7 +48,6 @@ public class SerializedBrokeredIdentityContext implements UpdateProfileContext {
 
     private String id;
     private String brokerUsername;
-    private String modelUsername;
     private String brokerSessionId;
     private String brokerUserId;
     private String code;
@@ -77,20 +76,20 @@ public class SerializedBrokeredIdentityContext implements UpdateProfileContext {
     @JsonIgnore
     @Override
     public String getUsername() {
-        return modelUsername;
+        return getFirstAttribute(UserModel.USERNAME);
     }
 
     @Override
     public void setUsername(String username) {
-        this.modelUsername = username;
+        setSingleAttribute(UserModel.USERNAME, username);
     }
 
     public String getModelUsername() {
-        return modelUsername;
+        return getFirstAttribute(UserModel.USERNAME);
     }
 
     public void setModelUsername(String modelUsername) {
-        this.modelUsername = modelUsername;
+        setSingleAttribute(UserModel.USERNAME, modelUsername);
     }
 
     public String getBrokerUsername() {

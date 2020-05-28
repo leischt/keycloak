@@ -49,7 +49,6 @@ import java.util.Set;
  * @author <a href="mailto:bill@burkecentral.com">Bill Burke</a>
  * @version $Revision: 1 $
  */
-// TODO: This class is no longer abstract, nor does it work correctly because the username is stored elsewhere, however it is basically unused as of now
 public abstract class AbstractUserAdapter implements UserModel {
     protected KeycloakSession session;
     protected RealmModel realm;
@@ -59,6 +58,13 @@ public abstract class AbstractUserAdapter implements UserModel {
         this.session = session;
         this.realm = realm;
         this.storageProviderModel = storageProviderModel;
+    }
+
+    abstract protected String doGetUsername();
+
+    @Override
+    public String getUsername() {
+        return doGetUsername();
     }
 
     @Override
@@ -314,16 +320,24 @@ public abstract class AbstractUserAdapter implements UserModel {
 
     @Override
     public String getFirstAttribute(String name) {
+        if (name.equals(UserModel.USERNAME)) {
+            return getUsername();
+        }
         return null;
     }
 
     @Override
     public Map<String, List<String>> getAttributes() {
-        return new MultivaluedHashMap<>();
+        MultivaluedHashMap<String, String> attributes = new MultivaluedHashMap<>();
+        attributes.add(UserModel.USERNAME, getUsername());
+        return attributes;
     }
 
     @Override
     public List<String> getAttribute(String name) {
+        if (name.equals(UserModel.USERNAME)) {
+            return Collections.singletonList(getUsername());
+        }
         return Collections.emptyList();
     }
 
