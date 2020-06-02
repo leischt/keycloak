@@ -853,11 +853,11 @@ public class JpaUserProvider implements UserProvider, UserCredentialStore {
                 case UserModel.SEARCH:
                     List<Predicate> orPredicates = new ArrayList();
 
-                    orPredicates.add(builder.like(builder.lower(root.get(UserModel.USERNAME)), "%" + value.toLowerCase() + "%"));
-                    orPredicates.add(builder.like(builder.lower(root.get(UserModel.EMAIL)), "%" + value.toLowerCase() + "%"));
+                    orPredicates.add(builder.like(builder.lower(root.get(USERNAME)), "%" + value.toLowerCase() + "%"));
+                    orPredicates.add(builder.like(builder.lower(root.get(EMAIL)), "%" + value.toLowerCase() + "%"));
                     orPredicates.add(builder.like(
                             builder.lower(builder.concat(builder.concat(
-                                    builder.coalesce(root.get(UserModel.FIRST_NAME), builder.literal("")), " "),
+                                    builder.coalesce(root.get(FIRST_NAME), builder.literal("")), " "),
                                     builder.coalesce(root.get(LAST_NAME), builder.literal("")))),
                             "%" + value.toLowerCase() + "%"));
 
@@ -865,10 +865,10 @@ public class JpaUserProvider implements UserProvider, UserCredentialStore {
 
                     break;
 
-                case UserModel.USERNAME:
-                case UserModel.FIRST_NAME:
+                case USERNAME:
+                case FIRST_NAME:
                 case LAST_NAME:
-                case UserModel.EMAIL:
+                case EMAIL:
                     predicates.add(builder.like(builder.lower(root.get(key)), "%" + value.toLowerCase() + "%"));
             }
         }
